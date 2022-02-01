@@ -14,7 +14,7 @@ Der Anwender der Software soll…
 
 ## Datenpersistenz
 
-Daten, die in der Datenbank gespeichert werden sollen: 
+Daten, die in der Datenbank gespeichert werden sollen:
 
 - Informationen über Artikel.
 - Kategorien für Artikel
