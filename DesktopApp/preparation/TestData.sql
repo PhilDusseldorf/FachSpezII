@@ -133,14 +133,31 @@ INSERT INTO rechnungsadresse VALUES
 ;
 SELECT * FROM rechnungsadresse;
 
--- POSITIONEN DER RECHNUNGEN
+-- POSITIONEN
+DROP TABLE IF EXISTS position;
 CREATE TABLE IF NOT EXISTS position (
     id INTEGER PRIMARY KEY,
     menge INTEGER,
     preis DECIMAL(7,2),
     rechnung_id INTEGER,
-    FOREIGN KEY(rechnung_id) REFERENCES rechnung(id)
+    artikel_id INTEGER,
+    FOREIGN KEY(rechnung_id) REFERENCES rechnung(id),
+    FOREIGN KEY(artikel_id) REFERENCES artikel(id)
 );
+INSERT INTO position(menge, rechnung_id, artikel_id) VALUES
+(1, 1, 1),
+(1, 1, 2),
+(1, 1, 3),
+(1, 1, 4),
+(2, 2, 4),
+(1, 2, 6),
+(10, 3, 8),
+(1, 4, 4),
+(1, 4, 2),
+(1, 5, 6),
+(3, 6, 6),
+(4, 6, 7)
+;
 
 -- ARTIKEL IM SHOP
 DROP TABLE IF EXISTS artikel;
