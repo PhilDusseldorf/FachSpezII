@@ -51,14 +51,6 @@ CREATE TABLE IF NOT EXISTS rechnungsadresse (
     FOREIGN KEY(a_id) REFERENCES adresse(id)
 );
 
-CREATE TABLE IF NOT EXISTS rechnung (
-    id INTEGER PRIMARY KEY,
-    datum DATE,
-    gesamtbetrag DECIMAL(7,2),
-    kunde_id INTEGER,
-    FOREIGN KEY(kunde_id) REFERENCES kunde(id)
-);
-
 CREATE TABLE IF NOT EXISTS position (
     id INTEGER PRIMARY KEY,
     menge INTEGER,
@@ -71,13 +63,14 @@ CREATE TABLE IF NOT EXISTS position (
 
 CREATE TABLE IF NOT EXISTS artikel (
     id INTEGER PRIMARY KEY,
+    name VARCHAR,
     preis DECIMAL(7,2),
     beschreibung VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS bild (
     id INTEGER PRIMARY KEY,
-    bild VARBINARY,
+    bild TEXT,
     artikel_id INTEGER,
     FOREIGN KEY(artikel_id) REFERENCES artikel(id)
 );
