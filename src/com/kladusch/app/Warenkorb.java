@@ -19,62 +19,13 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Warenkorb extends JFrame {
+public class Warenkorb extends MyPanel implements ActionListener {
 
-	private JPanel contentPane;
-	private JTextField textField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Warenkorb frame = new Warenkorb();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public Warenkorb() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
-		contentPane = new JPanel();
-		contentPane.setBackground(Color.PINK);
-		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		JPanel topMenu = new JPanel();
-		topMenu.setBackground(Color.WHITE);
-		topMenu.setBorder(new EmptyBorder(10, 10, 10, 10));
-		contentPane.add(topMenu, BorderLayout.NORTH);
-		
-		JLabel lblNewLabel = new JLabel("MyCD-Store");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		topMenu.add(lblNewLabel);
-		
-		JButton btnNewButton = new JButton("Sortiment");
-		topMenu.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Warenkorb");
-		topMenu.add(btnNewButton_1);
-		
-		textField = new JTextField();
-		textField.setText("Search");
-		textField.setColumns(10);
-		topMenu.add(textField);
+	public Warenkorb(MyFrame frame) {
+		super(frame);
 		
 		JPanel warenkorbPanel = new JPanel();
-		contentPane.add(warenkorbPanel, BorderLayout.CENTER);
+		this.add(warenkorbPanel, BorderLayout.CENTER);
 		warenkorbPanel.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Warenkorb");
@@ -100,13 +51,15 @@ public class Warenkorb extends JFrame {
 		sumLabel.setBounds(609, 398, 50, 19);
 		warenkorbPanel.add(sumLabel);
 		
-		JButton btnNewButton_2 = new JButton("Bezahlvorgang starten");
-		btnNewButton_2.setBackground(new Color(0, 128, 0));
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_2.setBounds(573, 423, 104, 40);
-		warenkorbPanel.add(btnNewButton_2);
+		JButton btnBezahlen = new JButton("Bezahlvorgang starten");
+		btnBezahlen.setBackground(new Color(0, 128, 0));
+		btnBezahlen.addActionListener(this);
+		btnBezahlen.setBounds(573, 423, 104, 40);
+		warenkorbPanel.add(btnBezahlen);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("Bezahlvorgang startet...");	
 	}
 }

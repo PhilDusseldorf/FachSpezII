@@ -17,146 +17,94 @@ import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Component;
+import javax.swing.ImageIcon;
+import java.awt.GridLayout;
+import javax.swing.DefaultComboBoxModel;
 
-public class Sortiment extends JFrame {
+public class Sortiment extends MyPanel {
+	private JPanel articleList;
+	private JPanel centerPanel;
+	private JPanel centerMenu;
+	private JPanel categoryPanel;
 
-	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField txtSortBy;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Sortiment frame = new Sortiment();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public Sortiment() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
-		contentPane = new JPanel();
-		contentPane.setBackground(Color.PINK);
-		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+	public Sortiment(MyFrame frame) {
+		super(frame);
 		
-		JPanel topMenu = new JPanel();
-		topMenu.setBackground(Color.WHITE);
-		topMenu.setBorder(new EmptyBorder(10, 10, 10, 10));
-		contentPane.add(topMenu, BorderLayout.NORTH);
-		
-		JLabel lblNewLabel = new JLabel("MyCD-Store");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		topMenu.add(lblNewLabel);
-		
-		JButton btnNewButton = new JButton("Sortiment");
-		topMenu.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Warenkorb");
-		topMenu.add(btnNewButton_1);
-		
-		txtSearch = new JTextField();
-		txtSearch.setText("Search");
-		topMenu.add(txtSearch);
-		
-		textField = new JTextField();
-		textField.setText("Search");
-		textField.setColumns(10);
-		topMenu.add(textField);
-		
-		JPanel centerPanel = new JPanel();
-		contentPane.add(centerPanel, BorderLayout.CENTER);
+		// the center panel with upper centerMenu panel and the panel for the articleList
+		centerPanel = new JPanel();
+		this.add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(null);
 		
-		JPanel centerMenu = new JPanel();
+		// upper center panel with search and sort 
+		centerMenu = new JPanel();
 		centerMenu.setBounds(0, 0, 644, 82);
 		centerPanel.add(centerMenu);
 		centerMenu.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("0-9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(149, 11, 361, 14);
-		centerMenu.add(lblNewLabel_2);
+		JLabel fastSearch = new JLabel("0-9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
+		fastSearch.setHorizontalAlignment(SwingConstants.CENTER);
+		fastSearch.setBounds(149, 11, 361, 14);
+		centerMenu.add(fastSearch);
 		
-		JLabel lblNewLabel_3 = new JLabel("Sortiment");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_3.setBounds(10, 42, 85, 22);
-		centerMenu.add(lblNewLabel_3);
+		JLabel lblSortiment = new JLabel("Sortiment");
+		lblSortiment.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblSortiment.setBounds(10, 42, 85, 22);
+		centerMenu.add(lblSortiment);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(590, 45, 30, 22);
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Albumtitel", "Interpret", "Preis"}));
+		comboBox.setSelectedIndex(0);
+		comboBox.setBounds(522, 42, 92, 22);
 		centerMenu.add(comboBox);
 		
-		txtSortBy = new JTextField();
-		txtSortBy.setText("sort by");
-		txtSortBy.setBounds(534, 46, 86, 20);
-		centerMenu.add(txtSortBy);
-		txtSortBy.setColumns(10);
+		// here the sorted and/or searched articles are shown
+		articleList = new JPanel();
+		articleList.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 82, 644, 403);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		centerPanel.add(scrollPane);
+		// create dummy articles
+		for (int i = 0; i < 20 ; i++) {
+			articleList.add(createArtikel());
+		}
 		
-		JPanel categoryPanel = new JPanel();
+		// scroll panel for articles
+		JScrollPane scrollArt = new JScrollPane (articleList, 
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollArt.setBounds(0, 81, 620, 390);
+		centerPanel.add(scrollArt);
+		
+		// the category panel
+		categoryPanel = new JPanel();
 		categoryPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		contentPane.add(categoryPanel, BorderLayout.WEST);
 		categoryPanel.setLayout(new BoxLayout(categoryPanel, BoxLayout.Y_AXIS));
+		// header for categories
+		JLabel lblKategorie = new JLabel("Kategorien");
+		lblKategorie.setFont(new Font("Tahoma", Font.BOLD, 16));
+		categoryPanel.add(lblKategorie);
 		
-		JLabel lblNewLabel_1 = new JLabel("Kategorien");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 18));
-		categoryPanel.add(lblNewLabel_1);
+		// scroll panel for categories
+		JScrollPane scrollKat = new JScrollPane (categoryPanel, 
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		this.add(scrollKat, BorderLayout.WEST);
 		
-		JButton btnNewButton_2 = new JButton("Kategorie 01");
-		categoryPanel.add(btnNewButton_2);
-		
-		JButton btnNewButton_2_1 = new JButton("Kategorie 03");
-		categoryPanel.add(btnNewButton_2_1);
-		
-		JButton btnNewButton_2_2 = new JButton("Kategorie 01");
-		categoryPanel.add(btnNewButton_2_2);
-		
-		JButton btnNewButton_2_3 = new JButton("Kategorie 01");
-		categoryPanel.add(btnNewButton_2_3);
-		
-		JButton btnNewButton_2_1_1 = new JButton("Kategorie 03");
-		categoryPanel.add(btnNewButton_2_1_1);
-		
-		JButton btnNewButton_2_2_1 = new JButton("Kategorie 01");
-		categoryPanel.add(btnNewButton_2_2_1);
-		
-		JButton btnNewButton_2_4 = new JButton("Kategorie 01");
-		categoryPanel.add(btnNewButton_2_4);
-		
-		JButton btnNewButton_2_1_2 = new JButton("Kategorie 03");
-		categoryPanel.add(btnNewButton_2_1_2);
-		
-		JButton btnNewButton_2_2_2 = new JButton("Kategorie 01");
-		categoryPanel.add(btnNewButton_2_2_2);
-		
-		JButton btnNewButton_2_3_1 = new JButton("Kategorie 01");
-		categoryPanel.add(btnNewButton_2_3_1);
-		
-		JButton btnNewButton_2_1_1_1 = new JButton("Kategorie 03");
-		categoryPanel.add(btnNewButton_2_1_1_1);
-		
-		JButton btnNewButton_2_2_1_1 = new JButton("Kategorie 01");
-		categoryPanel.add(btnNewButton_2_2_1_1);
-		txtSearch.setColumns(10);
+		createCategorieButtons(categoryPanel);
+	}
+	
+	private void createCategorieButtons(JPanel panel) {
+		// create dummy categories
+		for (int i = 0; i < 25; i++) {
+			String number = String.valueOf(i+1);
+			if (i < 10) {
+				number = "0"+number;
+			}
+			JButton btnKategorie = new JButton("Kategorie"+number);
+			panel.add(btnKategorie);
+		}	
+	}
 
+
+	private Artikel createArtikel () {
+		return new Artikel(frame);
+	}
 }
-
