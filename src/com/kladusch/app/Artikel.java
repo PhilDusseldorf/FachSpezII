@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -23,14 +26,21 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class Artikel extends JPanel implements ActionListener{
-	private JButton albumIcon;
-	private Icon icon;
-	private JLabel albumTitle;
-	private JLabel albumArtist;
-	private JLabel albumPrice;
+	private JButton btnAlbumIcon;
+	private JLabel lblAlbumTitle;
+	private JLabel lblAlbumArtist;
+	private JLabel lblAlbumPrice;
+	private String priceString;
 	private JButton btnBuy;
 	private MyFrame window;
 	
+	// infos from database
+	private Icon icon;
+	private String nameAlbum = "Greatest Hits";
+	private String nameArtist = "Adele";
+	private String beschreibungString = "Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla.";
+	private Double price = 7.99;
+	private List<String> kategorienList = new ArrayList<>(Arrays.asList("DolleMucke", "SoGefühlvoll", "ZumTräumen", "Popmusik", "KillMePlease"));
 	
 	public Artikel(MyFrame myFrame) {
 		this.window = myFrame;
@@ -38,27 +48,28 @@ public class Artikel extends JPanel implements ActionListener{
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		icon = new ImageIcon("C:\\Users\\CC-Student\\Desktop\\Hausaufgaben\\FachSpezII\\bald-men-2206811-1841376.png");
-		albumIcon = new JButton(icon);
-		albumIcon.addActionListener(this);
+		btnAlbumIcon = new JButton(icon);
+		btnAlbumIcon.addActionListener(this);
 		
-		albumTitle = new JLabel("Albumtitel");
-		albumTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		albumTitle.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblAlbumTitle = new JLabel(nameAlbum);
+		lblAlbumTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlbumTitle.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
-		albumArtist = new JLabel("Interpret");
+		lblAlbumArtist = new JLabel(nameArtist);
 		
-		albumPrice = new JLabel("Preis: 7,99 \u20AC");
+		priceString = "Preis: " + String.valueOf(price) + " €";
+		lblAlbumPrice = new JLabel(priceString);
 		
 		btnBuy = new JButton("Kaufen");
 		btnBuy.addActionListener(this);
 		
-		this.add(albumIcon);
+		this.add(btnAlbumIcon);
 		
-		this.add(albumTitle);
+		this.add(lblAlbumTitle);
 		
-		this.add(albumArtist);
+		this.add(lblAlbumArtist);
 		
-		this.add(albumPrice);
+		this.add(lblAlbumPrice);
 		
 		this.add(btnBuy);
 	}
@@ -69,6 +80,7 @@ public class Artikel extends JPanel implements ActionListener{
 		frame.setResizable(false);
 		// the actual dialog "panel"
         JDialog dialog = new JDialog(frame , "Produktdetails");
+        dialog.setResizable(false);
 
         // create the content
         JPanel mainPanel = new JPanel();
@@ -85,7 +97,7 @@ public class Artikel extends JPanel implements ActionListener{
 		lblAlbum.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(lblAlbum);
 		
-		JLabel album = new JLabel("New label");
+		JLabel album = new JLabel(nameAlbum);
 		album.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(album);
 		
@@ -94,7 +106,7 @@ public class Artikel extends JPanel implements ActionListener{
 		lblInterpret.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(lblInterpret);
 		
-		JLabel artist = new JLabel("New label");
+		JLabel artist = new JLabel(nameArtist);
 		artist.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(artist);
 		
@@ -107,7 +119,7 @@ public class Artikel extends JPanel implements ActionListener{
 		beschreibung.setLineWrap(true);
 		beschreibung.setWrapStyleWord(true);
 		beschreibung.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		beschreibung.setText("Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla.");
+		beschreibung.setText(beschreibungString);
 		beschreibung.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(beschreibung);
 		
@@ -116,7 +128,7 @@ public class Artikel extends JPanel implements ActionListener{
 		lblPreis.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(lblPreis);
 		
-		JLabel preis = new JLabel("7,99");
+		JLabel preis = new JLabel(String.valueOf(price) + "€");
 		preis.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(preis);
 		
@@ -127,10 +139,10 @@ public class Artikel extends JPanel implements ActionListener{
 		mainPanel.add(boxRight);
 		boxRight.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblIcon = new JLabel("");
+		JLabel lblIcon = new JLabel(icon);
 		lblIcon.setMinimumSize(new Dimension(255,255));
 		lblIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIcon.setIcon(new ImageIcon("C:\\Users\\CC-Student\\Desktop\\Hausaufgaben\\FachSpezII\\bald-men-2206811-1841376.png"));
+		//lblIcon.setIcon(icon);
 		boxRight.add(lblIcon, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
@@ -143,9 +155,11 @@ public class Artikel extends JPanel implements ActionListener{
 		lblKategorien.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblKategorien);
 		
-		JLabel kategorien = new JLabel("KAtegorie1, KAtegorie2");
-		kategorien.setVerticalAlignment(SwingConstants.TOP);
-		kategorien.setHorizontalAlignment(SwingConstants.LEFT);
+		JTextArea kategorien = new JTextArea(String.join(", ", kategorienList));
+		kategorien.setLineWrap(true);
+		kategorien.setWrapStyleWord(true);
+		kategorien.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		kategorien.setAlignmentX(LEFT_ALIGNMENT);
 		panel.add(kategorien);
 
         dialog.add(mainPanel);
@@ -168,7 +182,7 @@ public class Artikel extends JPanel implements ActionListener{
 			JOptionPane.showMessageDialog(this, "Der Artikel wurde im Warenkorb gespeichert.", "Artikel gemerkt", JOptionPane.PLAIN_MESSAGE);
 		}
 		
-		if (e.getSource() == albumIcon) {
+		if (e.getSource() == btnAlbumIcon) {
 			System.out.println("Popup für Details soll öffnen...");
 			createProduktdetails();
 		}

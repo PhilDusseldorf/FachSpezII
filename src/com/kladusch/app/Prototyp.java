@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -41,10 +43,9 @@ public class Prototyp extends MyPanel {
 		introText.setText("Du bist genau richtig hier im myCD-shop. Wir bieten hochmoderne CompactDisks an, die du in deinen CD-Spieler oder auch in deinen Discman packen kannst. Gibt es etwas praktischeres als einen Diskman, um unterwegs seine Lieblingsmusik zu hören? Sicher nicht! Darum hole dir hier das beste Futter für deine Ohren. Von A wie Adele bis X wie Xavier Naidoo findest du hier die größten Stars der Musikbranche. Tatsächlich haben wir keine CDs von Interpreten, die mit Y oder Z beginnen.");
 		introPanel.add(introText, BorderLayout.CENTER);
 		
-		JLabel welcomeIcon = new JLabel("");
+		JLabel welcomeIcon = new JLabel(new ImageIcon("C:\\Users\\CC-Student\\Desktop\\Hausaufgaben\\FachSpezII\\icon-placeholder-14.jpg"));
 		welcomeIcon.setForeground(UIManager.getColor("Button.disabledForeground"));
 		welcomeIcon.setBackground(new Color(105, 105, 105));
-		welcomeIcon.setIcon(new ImageIcon("C:\\Users\\CC-Student\\Desktop\\Hausaufgaben\\FachSpezII\\icon-placeholder-14.jpg"));
 		introPanel.add(welcomeIcon, BorderLayout.EAST);
 	}
 
