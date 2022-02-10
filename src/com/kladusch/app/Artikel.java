@@ -80,6 +80,11 @@ public class Artikel extends JPanel implements ActionListener{
 		frame.setResizable(false);
 		// the actual dialog "panel"
         JDialog dialog = new JDialog(frame , "Produktdetails");
+        // set bounds of dialog
+        int dialogWidth = 400;
+        int dialogHeight = 400;
+        dialog.setSize(dialogWidth, dialogHeight);
+        dialog.setLocationRelativeTo(window);
         dialog.setResizable(false);
 
         // create the content
@@ -164,11 +169,6 @@ public class Artikel extends JPanel implements ActionListener{
 
         dialog.add(mainPanel);
 
-        // set bounds of dialog
-        int dialogWidth = 400;
-        int dialogHeight = 400;
-        dialog.setSize(dialogWidth, dialogHeight);
-        dialog.setLocationRelativeTo(window);
 
         // set visibility of dialog
         dialog.setVisible(true);

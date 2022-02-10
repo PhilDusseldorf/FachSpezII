@@ -34,12 +34,12 @@ public class Warenkorb extends MyPanel implements ActionListener {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		warenkorbPanel.add(lblNewLabel_1);
 		
-		JScrollPane warenkorbItems = new JScrollPane();
-		warenkorbItems.setBounds(68, 33, 609, 354);
-		warenkorbItems.setViewportBorder(new EmptyBorder(50, 50, 50, 50));
-		warenkorbItems.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		warenkorbItems.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		warenkorbPanel.add(warenkorbItems);
+		JScrollPane warenkorbScroll = new JScrollPane();
+		warenkorbScroll.setBounds(68, 33, 609, 354);
+		warenkorbScroll.setViewportBorder(new EmptyBorder(50, 50, 50, 50));
+		warenkorbScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		warenkorbScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		warenkorbPanel.add(warenkorbScroll);
 		
 		JLabel lblNewLabel_2 = new JLabel("Gesamt zu Zahlen:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -61,5 +61,6 @@ public class Warenkorb extends MyPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Bezahlvorgang startet...");	
+		frame.changePanel(frame.bestellPanel);
 	}
 }

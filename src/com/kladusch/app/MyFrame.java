@@ -7,6 +7,7 @@ public class MyFrame extends JFrame {
     Prototyp startPanel;
     Sortiment sortPanel;
     Warenkorb warenPanel;
+    Bestellung bestellPanel;
 	
 	public MyFrame() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,6 +19,7 @@ public class MyFrame extends JFrame {
 		startPanel = new Prototyp(this);
 		sortPanel = new Sortiment(this);
 		warenPanel = new Warenkorb(this);
+		bestellPanel = new Bestellung(this);
 		
 		changePanel(startPanel);
 	}
