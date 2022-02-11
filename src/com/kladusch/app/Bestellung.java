@@ -23,6 +23,7 @@ import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 
 public class Bestellung extends MyPanel implements ActionListener {
+	WarenList warenList;
 
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -110,11 +111,15 @@ public class Bestellung extends MyPanel implements ActionListener {
 		lblBestellung.setBounds(50, 11, 85, 22);
 		bestellPanel.add(lblBestellung);
 		
-		JScrollPane warenkorbItems = new JScrollPane();
-		warenkorbItems.setViewportBorder(new EmptyBorder(50, 50, 50, 50));
-		warenkorbItems.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		warenkorbItems.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		warenkorbItems.setBounds(50, 33, 390, 232);
+		// here the warenkorbItems are shown
+		warenList = new WarenList();
+		warenList.loadWarenkorbItems();
+		
+		JScrollPane warenkorbItems = new JScrollPane(warenList, 
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		warenkorbItems.setViewportBorder(new EmptyBorder(10, 10, 10, 10));
+		warenkorbItems.setBounds(50, 33, 480, 232);
 		bestellPanel.add(warenkorbItems);
 		
 		JLabel lblZuZahlen = new JLabel("Gesamt zu Zahlen:");

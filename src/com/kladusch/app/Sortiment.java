@@ -62,7 +62,7 @@ public class Sortiment extends MyPanel {
 		articleList.setLayout(new GridLayout(0, 5, 0, 0));
 		
 		// create dummy articles
-		for (int i = 0; i < 20 ; i++) {
+		for (int i = 0; i < 2 ; i++) {
 			articleList.add(createArtikel());
 		}
 		
@@ -93,7 +93,7 @@ public class Sortiment extends MyPanel {
 	
 	private void createCategorieButtons(JPanel panel) {
 		// create dummy categories
-		for (int i = 0; i < 25; i++) {
+		for (int i = 0; i < 2; i++) {
 			String number = String.valueOf(i+1);
 			if (i < 10) {
 				number = "0"+number;

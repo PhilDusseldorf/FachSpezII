@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 public class MyFrame extends JFrame {
 	// Panels
+	WarenList warenList;
     Prototyp startPanel;
     Sortiment sortPanel;
     Warenkorb warenPanel;
@@ -16,6 +17,7 @@ public class MyFrame extends JFrame {
 		this.setResizable(false);
 		
 		// panel initializations
+		warenList = new WarenList();
 		startPanel = new Prototyp(this);
 		sortPanel = new Sortiment(this);
 		warenPanel = new Warenkorb(this);

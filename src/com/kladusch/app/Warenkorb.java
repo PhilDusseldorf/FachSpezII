@@ -5,10 +5,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.GridLayout;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -20,43 +23,56 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Warenkorb extends MyPanel implements ActionListener {
+	JPanel warenkorbPanel;
+	WarenList warenList;
+	JScrollPane warenkorbScroll;
+	
+	JLabel lblWarenkorb;
+	JLabel lblZuZahlen;
+	JLabel sumLabel;
+	
+	JButton btnBezahlen;
 
 	public Warenkorb(MyFrame frame) {
 		super(frame);
 		
-		JPanel warenkorbPanel = new JPanel();
+		warenkorbPanel = new JPanel();
 		this.add(warenkorbPanel, BorderLayout.CENTER);
 		warenkorbPanel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Warenkorb");
-		lblNewLabel_1.setBounds(319, 0, 85, 22);
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		warenkorbPanel.add(lblNewLabel_1);
+		lblWarenkorb = new JLabel("Warenkorb");
+		lblWarenkorb.setBounds(319, 0, 85, 22);
+		lblWarenkorb.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWarenkorb.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		warenkorbPanel.add(lblWarenkorb);
 		
-		JScrollPane warenkorbScroll = new JScrollPane();
+		// here the warenkorbItems are shown
+		warenList = new WarenList();
+		warenList.loadWarenkorbItems();
+		
+		warenkorbScroll = new JScrollPane(warenList, 
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		warenkorbScroll.setBounds(68, 33, 609, 354);
-		warenkorbScroll.setViewportBorder(new EmptyBorder(50, 50, 50, 50));
-		warenkorbScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		warenkorbScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		warenkorbPanel.add(warenkorbScroll);
 		
-		JLabel lblNewLabel_2 = new JLabel("Gesamt zu Zahlen:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_2.setBounds(457, 398, 142, 22);
-		warenkorbPanel.add(lblNewLabel_2);
+		lblZuZahlen = new JLabel("Gesamt zu Zahlen:");
+		lblZuZahlen.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblZuZahlen.setBounds(457, 398, 142, 22);
+		warenkorbPanel.add(lblZuZahlen);
 		
-		JLabel sumLabel = new JLabel("89,89 \u20AC");
+		sumLabel = new JLabel("89,89 \u20AC");
 		sumLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		sumLabel.setBounds(609, 398, 50, 19);
 		warenkorbPanel.add(sumLabel);
 		
-		JButton btnBezahlen = new JButton("Bezahlvorgang starten");
+		btnBezahlen = new JButton("Bezahlvorgang starten");
 		btnBezahlen.setBackground(new Color(0, 128, 0));
 		btnBezahlen.addActionListener(this);
 		btnBezahlen.setBounds(573, 423, 104, 40);
 		warenkorbPanel.add(btnBezahlen);
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
