@@ -1,4 +1,4 @@
-package com.kladusch.app;
+package com.kladusch.app.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,6 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import com.kladusch.app.MyPanel;
+import com.kladusch.app.MyFrame;
+
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
@@ -167,7 +171,7 @@ public class Bestellung extends MyPanel implements ActionListener {
 		}
 		
 		if (e.getSource() == btnWarenkorb2) {
-			frame.changePanel(frame.warenPanel);
+			frame.changePanel(frame.getWarenPanel());
 		}
 		
 	}

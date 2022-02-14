@@ -1,4 +1,4 @@
-package com.kladusch.app;
+package com.kladusch.app.view;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import com.kladusch.app.MyFrame;
 
 public class TopMenu extends JPanel implements ActionListener {
 	MyFrame frame;
@@ -53,12 +55,12 @@ public class TopMenu extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		 if(e.getSource() == btnSortiment){
 	            System.out.println("Button Sortiment geklickt!");
-	            frame.changePanel(frame.sortPanel);
+	            frame.changePanel(frame.getSortPanel());
 	        }
 		 
 		 if(e.getSource() == btnWarenkorb){
 	            System.out.println("Button Warenkorb geklickt!");
-	            frame.changePanel(frame.warenPanel);
+	            frame.changePanel(frame.getWarenPanel());
 	        }
 		
 	}

@@ -1,4 +1,4 @@
-package com.kladusch.app;
+package com.kladusch.app.view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -24,6 +24,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import com.kladusch.app.MyFrame;
 
 public class Artikel extends JPanel implements ActionListener{
 	private JButton btnAlbumIcon;

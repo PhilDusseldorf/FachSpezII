@@ -1,4 +1,4 @@
-package com.kladusch.app;
+package com.kladusch.app.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,6 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import com.kladusch.app.MyFrame;
+import com.kladusch.app.MyPanel;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -77,6 +81,6 @@ public class Warenkorb extends MyPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Bezahlvorgang startet...");	
-		frame.changePanel(frame.bestellPanel);
+		frame.changePanel(frame.getBestellPanel());
 	}
 }

@@ -2,9 +2,11 @@ package com.kladusch.app;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.kladusch.app.view.TopMenu;
+import com.kladusch.app.MyFrame;
 
 public class MyPanel extends JPanel {
 	protected MyFrame frame;

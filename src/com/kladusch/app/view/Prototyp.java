@@ -1,4 +1,4 @@
-package com.kladusch.app;
+package com.kladusch.app.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -21,6 +21,10 @@ import java.awt.Image;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EtchedBorder;
+
+import com.kladusch.app.MyFrame;
+import com.kladusch.app.MyPanel;
+
 import javax.swing.UIManager;
 import javax.swing.ImageIcon;
 

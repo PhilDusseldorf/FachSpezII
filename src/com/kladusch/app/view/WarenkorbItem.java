@@ -1,4 +1,4 @@
-package com.kladusch.app;
+package com.kladusch.app.view;
 
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
