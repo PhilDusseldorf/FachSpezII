@@ -27,7 +27,4 @@ public class SQLiteConnection implements DBConnection {
 		return "data from sqlliteDB";
 	}
 
-	public static void main(String[] args) {
-		DBConnection dbc = new SQLiteConnection();
-	}
 }
