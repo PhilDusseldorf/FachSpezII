@@ -1,18 +1,19 @@
 package com.kladusch.app;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
+
+import com.kladusch.app.model.MainModel;
+import com.kladusch.app.model.crud.SQLiteConnection;
+import com.kladusch.app.model.interfaces.DBConnection;
 
 public class App {
 	
     public static void main(String[] args) throws Exception {
+    	// set up Database
+    	DBConnection connection = new SQLiteConnection();
+    	MainModel model = new MainModel(connection);
     	// Frame
-    	MyFrame frame = new MyFrame();
+    	MyFrame frame = new MyFrame(model.getKatalog());
         
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

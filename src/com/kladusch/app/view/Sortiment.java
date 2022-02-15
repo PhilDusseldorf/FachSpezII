@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.kladusch.app.MyFrame;
 import com.kladusch.app.MyPanel;
+import com.kladusch.app.model.KatalogItem;
 
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
@@ -23,16 +24,24 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.swing.DefaultComboBoxModel;
 
 public class Sortiment extends MyPanel {
-	private JPanel articleList;
+	private JPanel articleListPanel;
 	private JPanel centerPanel;
 	private JPanel centerMenu;
 	private JPanel categoryPanel;
+	private List<KatalogItem> katalog;
+	private List<KatalogItem> searchItemList;
 
-	public Sortiment(MyFrame frame) {
+	public Sortiment(MyFrame frame, List<KatalogItem> katalogList) {
 		super(frame);
+		this.katalog = katalogList;
+		this.searchItemList = new ArrayList<>(katalog);
 		
 		// the center panel with upper centerMenu panel and the panel for the articleList
 		centerPanel = new JPanel();
@@ -62,16 +71,14 @@ public class Sortiment extends MyPanel {
 		centerMenu.add(comboBox);
 		
 		// here the sorted and/or searched articles are shown
-		articleList = new JPanel();
-		articleList.setLayout(new GridLayout(0, 5, 0, 0));
+		articleListPanel = new JPanel();
+		articleListPanel.setLayout(new GridLayout(0, 4, 0, 0));
 		
-		// create dummy articles
-		for (int i = 0; i < 2 ; i++) {
-			articleList.add(createArtikel());
-		}
+		
+		addItemsToArtikelListPanel();
 		
 		// scroll panel for articles
-		JScrollPane scrollArt = new JScrollPane (articleList, 
+		JScrollPane scrollArt = new JScrollPane (articleListPanel, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollArt.setBounds(0, 81, 620, 390);
@@ -95,6 +102,13 @@ public class Sortiment extends MyPanel {
 		createCategorieButtons(categoryPanel);
 	}
 	
+	private void addItemsToArtikelListPanel() {
+		articleListPanel.removeAll();
+		for (KatalogItem item:  searchItemList) {
+			articleListPanel.add(createArtikel(item));
+		}
+	}
+
 	private void createCategorieButtons(JPanel panel) {
 		// create dummy categories
 		for (int i = 0; i < 2; i++) {
@@ -108,7 +122,18 @@ public class Sortiment extends MyPanel {
 	}
 
 
-	private Artikel createArtikel () {
-		return new Artikel(frame);
+	private Artikel createArtikel (KatalogItem item) {
+		return new Artikel(frame, item);
+	}
+	
+	public void showSearch(String text) {
+		searchItemList.clear();
+		for (KatalogItem item: katalog) {
+			if (item.nameAlbum.toLowerCase().contains(text.toLowerCase()) || item.nameArtist.toLowerCase().contains(text.toLowerCase())) {
+				searchItemList.add(item);
+			}
+		}
+		addItemsToArtikelListPanel();
+		frame.changePanel((MyPanel)frame.getSortPanel());
 	}
 }

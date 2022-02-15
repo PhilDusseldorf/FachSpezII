@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.kladusch.app.MyFrame;
+import com.kladusch.app.model.KatalogItem;
 
 public class Artikel extends JPanel implements ActionListener{
 	private JButton btnAlbumIcon;
@@ -36,31 +37,33 @@ public class Artikel extends JPanel implements ActionListener{
 	private JButton btnBuy;
 	private MyFrame window;
 	
-	// infos from database
+	// infos from ArrayList
 	private Icon icon;
-	private String nameAlbum = "Greatest Hits";
-	private String nameArtist = "Adele";
-	private String beschreibungString = "Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla. Ein wunderbares Album voller Lieder und Blabla.";
-	private Double price = 7.99;
-	private List<String> kategorienList = new ArrayList<>(Arrays.asList("DolleMucke", "SoGefühlvoll", "ZumTräumen", "Popmusik", "KillMePlease"));
+	private String nameAlbum;
+	private String nameArtist;
+	private String beschreibungString;
+	private Double price;
+	private List<String> kategorienList;
 	
-	public Artikel(MyFrame myFrame) {
+	public Artikel(MyFrame myFrame, KatalogItem item) {
 		this.window = myFrame;
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		icon = new ImageIcon("C:\\Users\\CC-Student\\Desktop\\Hausaufgaben\\FachSpezII\\bald-men-2206811-1841376.png");
+		icon = item.icon;
 		btnAlbumIcon = new JButton(icon);
 		btnAlbumIcon.addActionListener(this);
 		
-		lblAlbumTitle = new JLabel(nameAlbum);
+		lblAlbumTitle = new JLabel(item.nameAlbum);
 		lblAlbumTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlbumTitle.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
-		lblAlbumArtist = new JLabel(nameArtist);
+		lblAlbumArtist = new JLabel(item.nameArtist);
 		
-		priceString = "Preis: " + String.valueOf(price) + " €";
+		priceString = "Preis: " + String.valueOf(item.price) + " €";
 		lblAlbumPrice = new JLabel(priceString);
+		
+		beschreibungString = item.beschreibungString;
 		
 		btnBuy = new JButton("Kaufen");
 		btnBuy.addActionListener(this);

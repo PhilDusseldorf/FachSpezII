@@ -2,13 +2,15 @@ package com.kladusch.app.model.crud;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.kladusch.app.model.interfaces.DBConnection;
 
 public class SQLiteConnection implements DBConnection {
 	// ATTRIBUTES
-	private static final String URL = "jdbc:sqlite:./preparation/db.db";
+	private static final String URL = "jdbc:sqlite:./db.db";
 	private Connection connection;
 	
 	// CONSTRUCTORS
@@ -23,8 +25,16 @@ public class SQLiteConnection implements DBConnection {
 	
 	// METHODS
 	@Override
-	public String getDataFromDB() {
-		return "data from sqlliteDB";
+	public ResultSet getDataFromDB(String query) {
+		Statement statement;
+		ResultSet resultSet = null;
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultSet;
 	}
 
 }

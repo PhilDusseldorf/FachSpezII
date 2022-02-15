@@ -1,7 +1,10 @@
 package com.kladusch.app;
 
+import java.util.List;
+
 import javax.swing.JFrame;
 
+import com.kladusch.app.model.KatalogItem;
 import com.kladusch.app.view.Bestellung;
 import com.kladusch.app.view.Prototyp;
 import com.kladusch.app.view.Sortiment;
@@ -36,7 +39,7 @@ public class MyFrame extends JFrame {
 		return bestellPanel;
 	}
 
-	public MyFrame() {
+	public MyFrame(List<KatalogItem> katalog) {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 800, 600);
 		this.setTitle("myCD-Shop");
@@ -45,7 +48,7 @@ public class MyFrame extends JFrame {
 		// panel initializations
 		warenList = new WarenList();
 		startPanel = new Prototyp(this);
-		sortPanel = new Sortiment(this);
+		sortPanel = new Sortiment(this, katalog);
 		warenPanel = new Warenkorb(this);
 		bestellPanel = new Bestellung(this);
 		
@@ -60,4 +63,8 @@ public class MyFrame extends JFrame {
     	this.setVisible(true);
     	System.out.println("Content Pane after: " + this.getContentPane().getClass().getSimpleName());
     }
+
+	public void startSearch(String text) {
+		((Sortiment)sortPanel).showSearch(text);
+	}
 }

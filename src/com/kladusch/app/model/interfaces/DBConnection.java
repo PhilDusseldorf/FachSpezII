@@ -1,5 +1,7 @@
 package com.kladusch.app.model.interfaces;
 
+import java.sql.ResultSet;
+
 public interface DBConnection {
-	String getDataFromDB();
+	ResultSet getDataFromDB(String query);
 }

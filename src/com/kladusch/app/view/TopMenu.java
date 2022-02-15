@@ -19,6 +19,7 @@ public class TopMenu extends JPanel implements ActionListener {
 	JLabel storeName;
 	JButton btnSortiment;
 	JButton btnWarenkorb;
+	JButton btnSearch;
 	JTextField searchField;
 	
 	
@@ -46,24 +47,31 @@ public class TopMenu extends JPanel implements ActionListener {
 		this.add(btnWarenkorb);
 		
 		searchField = new JTextField();
-		searchField.setText("Search");
+		searchField.setText("");
 		searchField.setColumns(10);
 		this.add(searchField);
+		
+		btnSearch = new JButton("Suche");
+		btnSearch.addActionListener(this);
+		this.add(btnSearch);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		 if(e.getSource() == btnSortiment){
 	            System.out.println("Button Sortiment geklickt!");
-	            frame.changePanel(frame.getSortPanel());
+	            frame.startSearch("");
 	        }
 		 
 		 if(e.getSource() == btnWarenkorb){
 	            System.out.println("Button Warenkorb geklickt!");
 	            frame.changePanel(frame.getWarenPanel());
 	        }
-		
+		 
+		 if(e.getSource() == btnSearch){
+	            System.out.println("Search text: " + searchField.getText());
+	            frame.startSearch(searchField.getText());
+	        }
 	}
-	
 	
 }
