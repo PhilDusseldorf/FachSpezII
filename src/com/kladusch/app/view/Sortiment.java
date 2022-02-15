@@ -38,7 +38,7 @@ public class Sortiment extends MyPanel {
 	private List<KatalogItem> katalog;
 	private List<KatalogItem> searchItemList;
 
-	public Sortiment(MyFrame frame, List<KatalogItem> katalogList) {
+	public Sortiment(MyFrame frame, List<KatalogItem> katalogList, List<String> kategorien) {
 		super(frame);
 		this.katalog = katalogList;
 		this.searchItemList = new ArrayList<>(katalog);
@@ -74,7 +74,6 @@ public class Sortiment extends MyPanel {
 		articleListPanel = new JPanel();
 		articleListPanel.setLayout(new GridLayout(0, 4, 0, 0));
 		
-		
 		addItemsToArtikelListPanel();
 		
 		// scroll panel for articles
@@ -99,31 +98,22 @@ public class Sortiment extends MyPanel {
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		this.add(scrollKat, BorderLayout.WEST);
 		
-		createCategorieButtons(categoryPanel);
+		createCategorieButtons(categoryPanel, kategorien);
 	}
 	
 	private void addItemsToArtikelListPanel() {
 		articleListPanel.removeAll();
 		for (KatalogItem item:  searchItemList) {
-			articleListPanel.add(createArtikel(item));
+			articleListPanel.add(new Artikel(frame, item));
 		}
 	}
 
-	private void createCategorieButtons(JPanel panel) {
-		// create dummy categories
-		for (int i = 0; i < 2; i++) {
-			String number = String.valueOf(i+1);
-			if (i < 10) {
-				number = "0"+number;
-			}
-			JButton btnKategorie = new JButton("Kategorie"+number);
+	private void createCategorieButtons(JPanel panel, List<String> kategorien) {
+		
+		for (String str : kategorien) {
+			JButton btnKategorie = new JButton(str);
 			panel.add(btnKategorie);
 		}	
-	}
-
-
-	private Artikel createArtikel (KatalogItem item) {
-		return new Artikel(frame, item);
 	}
 	
 	public void showSearch(String text) {

@@ -39,7 +39,7 @@ public class MyFrame extends JFrame {
 		return bestellPanel;
 	}
 
-	public MyFrame(List<KatalogItem> katalog) {
+	public MyFrame(List<KatalogItem> katalog, List<String> kategorien) {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 800, 600);
 		this.setTitle("myCD-Shop");
@@ -48,7 +48,7 @@ public class MyFrame extends JFrame {
 		// panel initializations
 		warenList = new WarenList();
 		startPanel = new Prototyp(this);
-		sortPanel = new Sortiment(this, katalog);
+		sortPanel = new Sortiment(this, katalog, kategorien);
 		warenPanel = new Warenkorb(this);
 		bestellPanel = new Bestellung(this);
 		

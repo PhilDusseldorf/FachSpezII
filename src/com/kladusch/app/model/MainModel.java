@@ -11,6 +11,7 @@ public class MainModel {
 	// ATTRIBUTES
 	private DBConnection connection;
 	private List<KatalogItem> katalog = new ArrayList<>();
+	private List<String> kategorien = new ArrayList<>();
 	
 	// GETTERS & SETTERS
 	public DBConnection getDBConnection() {
@@ -25,11 +26,16 @@ public class MainModel {
 		return katalog;
 	}
 	
+	public List<String> getKategorien() {
+		return kategorien;
+	}
+	
 	// CONSTRUCTORS
 	public MainModel(DBConnection con) {
 		this.setDBConnection(con);
 		
 		createKatalog();
+		createKategorien();
 	}
 	
 	// METHODS
@@ -63,6 +69,21 @@ public class MainModel {
 			e.printStackTrace();
 		}
 		System.out.println("katalog items: " + katalog.size());
+	}
+	
+	private void createKategorien() {		
+		String query = "SELECT bezeichnung FROM kategorie;";
+		ResultSet rs = getData(query);
+		
+		// Test if result set gets results:
+		try {
+			while (rs.next()) {
+				kategorien.add(rs.getString("bezeichnung"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("kategorien items: " + katalog.size());
 	}
 
 }
