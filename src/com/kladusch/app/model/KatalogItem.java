@@ -23,9 +23,7 @@ public class KatalogItem {
 		this.nameArtist = artist;
 		this.beschreibungString = description;
 		this.price = price;
-		// the kategorienList is also hard-coded to this point;
-		// this.kategorienList = new ArrayList<>(categories);
-		this.kategorienList = new ArrayList<>(Arrays.asList("DolleMucke", "SoGefühlvoll", "ZumTräumen", "Popmusik", "KillMePlease")); 
+		this.kategorienList = new ArrayList<>();
 	}
 
 }

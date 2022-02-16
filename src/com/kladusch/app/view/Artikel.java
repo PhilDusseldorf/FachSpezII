@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,9 +46,10 @@ public class Artikel extends JPanel implements ActionListener{
 	private Double price;
 	private List<String> kategorienList;
 	
-	// Fonts
-	private Font fntBold = new Font("Tahoma", Font.BOLD, 11);
-	private Font fntStnd = new Font("Tahoma", Font.PLAIN, 11);
+	// constants
+	private final Font fntBold = new Font("Tahoma", Font.BOLD, 11);
+	private final Font fntStnd = new Font("Tahoma", Font.PLAIN, 11);
+	private NumberFormat formatter = NumberFormat.getCurrencyInstance(getDefaultLocale());
 	
 	public Artikel(MyFrame myFrame, KatalogItem item) {
 		this.window = myFrame;
@@ -55,18 +57,22 @@ public class Artikel extends JPanel implements ActionListener{
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		kategorienList = new ArrayList<String>(item.kategorienList);
+		
 		icon = item.icon;
 		btnAlbumIcon = new JButton(icon);
 		btnAlbumIcon.addActionListener(this);
 		
-		lblAlbumTitle = new JLabel(item.nameAlbum);
+		nameAlbum = item.nameAlbum;
+		lblAlbumTitle = new JLabel(nameAlbum);
 		lblAlbumTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlbumTitle.setFont(fntBold);
 		
-		lblAlbumArtist = new JLabel(item.nameArtist);
+		nameArtist = item.nameArtist;
+		lblAlbumArtist = new JLabel(nameArtist);
 		
 		price = item.price;
-		priceString = "Preis: " + String.valueOf(price) + " €";
+
+		priceString = formatter.format(price);
 		lblAlbumPrice = new JLabel(priceString);
 		
 		beschreibungString = item.beschreibungString;
@@ -144,7 +150,7 @@ public class Artikel extends JPanel implements ActionListener{
 		lblPreis.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(lblPreis);
 		
-		JLabel preis = new JLabel(String.valueOf(price) + "€");
+		JLabel preis = new JLabel(priceString);
 		preis.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(preis);
 		
@@ -178,7 +184,6 @@ public class Artikel extends JPanel implements ActionListener{
 		panel.add(kategorien);
 
         dialog.add(mainPanel);
-
 
         // set visibility of dialog
         dialog.setVisible(true);

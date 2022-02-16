@@ -44,8 +44,9 @@ public class MainModel {
 	}
 	
 	private void createKatalog() {
-		// TODO: creates the katalog but does not get icon or categories from database yet
+		// TODO: creates the katalog but does not get icon
 		
+		// get standard infos
 		String query = "SELECT artikel.id, artikel.name AS album, interpret.name AS artist, beschreibung, preis FROM artikel "
 				+ "JOIN artikelinterpret ON artikel.id = artikelinterpret.a_id "
 				+ "JOIN interpret ON interpret.id = artikelinterpret.i_id "
@@ -53,7 +54,6 @@ public class MainModel {
 				;
 		ResultSet rs = getData(query);
 		
-		// Test if result set gets results:
 		try {
 			while (rs.next()) {
 				KatalogItem item = new KatalogItem(
@@ -68,7 +68,24 @@ public class MainModel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("katalog items: " + katalog.size());
+		
+		// fill katalog with kategorien
+		query = "SELECT a_id AS id, kategorie.bezeichnung AS kat FROM artikelkategorie "
+				+ "JOIN kategorie ON kategorie.id = artikelkategorie.k_id;";
+		
+		rs = getData(query);
+		
+		try {
+			while (rs.next()) {
+				for (KatalogItem item : katalog) {
+					if (item.id == rs.getInt("id")) {
+						item.kategorienList.add(rs.getString("kat"));
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void createKategorien() {		
@@ -83,7 +100,7 @@ public class MainModel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("kategorien items: " + katalog.size());
+		
 	}
 
 }
