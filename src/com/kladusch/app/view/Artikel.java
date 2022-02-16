@@ -45,22 +45,28 @@ public class Artikel extends JPanel implements ActionListener{
 	private Double price;
 	private List<String> kategorienList;
 	
+	// Fonts
+	private Font fntBold = new Font("Tahoma", Font.BOLD, 11);
+	private Font fntStnd = new Font("Tahoma", Font.PLAIN, 11);
+	
 	public Artikel(MyFrame myFrame, KatalogItem item) {
 		this.window = myFrame;
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
+		kategorienList = new ArrayList<String>(item.kategorienList);
 		icon = item.icon;
 		btnAlbumIcon = new JButton(icon);
 		btnAlbumIcon.addActionListener(this);
 		
 		lblAlbumTitle = new JLabel(item.nameAlbum);
 		lblAlbumTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlbumTitle.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblAlbumTitle.setFont(fntBold);
 		
 		lblAlbumArtist = new JLabel(item.nameArtist);
 		
-		priceString = "Preis: " + String.valueOf(item.price) + " €";
+		price = item.price;
+		priceString = "Preis: " + String.valueOf(price) + " €";
 		lblAlbumPrice = new JLabel(priceString);
 		
 		beschreibungString = item.beschreibungString;
@@ -101,40 +107,40 @@ public class Artikel extends JPanel implements ActionListener{
 		boxLeft.setBorder(new EmptyBorder(0, 20, 20, 20));
 		boxLeft.setLayout(new BoxLayout(boxLeft, BoxLayout.Y_AXIS));
 		mainPanel.add(boxLeft);
-		
+
 		JLabel lblAlbum = new JLabel("Albumtitel");
-		lblAlbum.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblAlbum.setFont(fntBold);
 		lblAlbum.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(lblAlbum);
 		
 		JLabel album = new JLabel(nameAlbum);
 		album.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(album);
-		
+
 		JLabel lblInterpret = new JLabel("Interpret");
-		lblInterpret.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblInterpret.setFont(fntBold);
 		lblInterpret.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(lblInterpret);
 		
 		JLabel artist = new JLabel(nameArtist);
 		artist.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(artist);
-		
+
 		JLabel lblBeschr = new JLabel("Beschreibung");
-		lblBeschr.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblBeschr.setFont(fntBold);
 		lblBeschr.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(lblBeschr);
 		
 		JTextArea beschreibung = new JTextArea();
 		beschreibung.setLineWrap(true);
 		beschreibung.setWrapStyleWord(true);
-		beschreibung.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		beschreibung.setFont(fntStnd);
 		beschreibung.setText(beschreibungString);
 		beschreibung.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(beschreibung);
-		
+
 		JLabel lblPreis = new JLabel("Preis");
-		lblPreis.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblPreis.setFont(fntBold);
 		lblPreis.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(lblPreis);
 		
@@ -148,11 +154,10 @@ public class Artikel extends JPanel implements ActionListener{
 		boxRight.setBorder(new EmptyBorder(20, 20, 20, 20));
 		mainPanel.add(boxRight);
 		boxRight.setLayout(new BorderLayout(0, 0));
-		
+
 		JLabel lblIcon = new JLabel(icon);
 		lblIcon.setMinimumSize(new Dimension(255,255));
 		lblIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		//lblIcon.setIcon(icon);
 		boxRight.add(lblIcon, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
@@ -162,13 +167,13 @@ public class Artikel extends JPanel implements ActionListener{
 		JLabel lblKategorien = new JLabel("Kategorien");
 		lblKategorien.setVerticalAlignment(SwingConstants.TOP);
 		lblKategorien.setHorizontalAlignment(SwingConstants.LEFT);
-		lblKategorien.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblKategorien.setFont(fntBold);
 		panel.add(lblKategorien);
 		
 		JTextArea kategorien = new JTextArea(String.join(", ", kategorienList));
 		kategorien.setLineWrap(true);
 		kategorien.setWrapStyleWord(true);
-		kategorien.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		kategorien.setFont(fntStnd);
 		kategorien.setAlignmentX(LEFT_ALIGNMENT);
 		panel.add(kategorien);
 
