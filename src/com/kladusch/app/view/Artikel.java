@@ -28,6 +28,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.kladusch.app.MyFrame;
 import com.kladusch.app.model.KatalogItem;
+import com.kladusch.app.model.MainModel;
 
 public class Artikel extends JPanel implements ActionListener{
 	private JButton btnAlbumIcon;
@@ -39,6 +40,7 @@ public class Artikel extends JPanel implements ActionListener{
 	private MyFrame window;
 	
 	// infos from ArrayList
+	private int id;
 	private Icon icon;
 	private String nameAlbum;
 	private String nameArtist;
@@ -58,6 +60,7 @@ public class Artikel extends JPanel implements ActionListener{
 		
 		kategorienList = new ArrayList<String>(item.kategorienList);
 		
+		id = item.id;
 		icon = item.icon;
 		btnAlbumIcon = new JButton(icon);
 		btnAlbumIcon.addActionListener(this);
@@ -194,6 +197,7 @@ public class Artikel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnBuy) {
 			System.out.println("Popup für Kauf soll öffnen...");
+			MainModel.addArtikelToWarenkorb(nameArtist, nameAlbum, price, id);
 			JOptionPane.showMessageDialog(this, "Der Artikel wurde im Warenkorb gespeichert.", "Artikel gemerkt", JOptionPane.PLAIN_MESSAGE);
 		}
 		

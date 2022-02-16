@@ -65,6 +65,8 @@ public class TopMenu extends JPanel implements ActionListener {
 		 
 		 if(e.getSource() == btnWarenkorb){
 	            System.out.println("Button Warenkorb geklickt!");
+	            ((Warenkorb)frame.getWarenPanel()).getWarenList().loadWarenkorbItems();
+	            ((Warenkorb)frame.getWarenPanel()).refreshZuZahlen();
 	            frame.changePanel(frame.getWarenPanel());
 	        }
 		 

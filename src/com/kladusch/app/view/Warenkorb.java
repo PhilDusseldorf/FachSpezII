@@ -10,8 +10,12 @@ import javax.swing.border.EmptyBorder;
 
 import com.kladusch.app.MyFrame;
 import com.kladusch.app.MyPanel;
+import com.kladusch.app.model.MainModel;
+import com.kladusch.app.view.WarenkorbItem;
 
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -24,11 +28,18 @@ import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 
 public class Warenkorb extends MyPanel implements ActionListener {
+	private NumberFormat formatter = NumberFormat.getCurrencyInstance(getDefaultLocale());
 	JPanel warenkorbPanel;
 	WarenList warenList;
+	
+	public WarenList getWarenList() {
+		return warenList;
+	}
+
 	JScrollPane warenkorbScroll;
 	
 	JLabel lblWarenkorb;
@@ -65,7 +76,7 @@ public class Warenkorb extends MyPanel implements ActionListener {
 		lblZuZahlen.setBounds(457, 398, 142, 22);
 		warenkorbPanel.add(lblZuZahlen);
 		
-		sumLabel = new JLabel("89,89 \u20AC");
+		sumLabel = new JLabel(getZuZahlen());
 		sumLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		sumLabel.setBounds(609, 398, 50, 19);
 		warenkorbPanel.add(sumLabel);
@@ -76,11 +87,25 @@ public class Warenkorb extends MyPanel implements ActionListener {
 		btnBezahlen.setBounds(573, 423, 104, 40);
 		warenkorbPanel.add(btnBezahlen);
 	}
+	
+	private String getZuZahlen() {
+		double sum = 0.0;
+		for (Component item : warenList.getComponents()) {
+			sum += ((WarenkorbItem)item).getSumPrice();
+		}
+		return formatter.format(sum);
+	}
+	
+	public void refreshZuZahlen() {
+		sumLabel.setText(getZuZahlen());
+	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Bezahlvorgang startet...");	
-		frame.changePanel(frame.getBestellPanel());
+		if (e.getSource() == btnBezahlen && MainModel.buyList.size() > 0) {
+			System.out.println("Bezahlvorgang startet...");	
+			frame.changePanel(frame.getBestellPanel());	
+		}
 	}
 }

@@ -7,9 +7,13 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+
 import javax.swing.BoxLayout;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
+
+import com.kladusch.app.model.BuyItem;
 
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
@@ -17,6 +21,7 @@ import javax.swing.SwingConstants;
 public class WarenkorbItem extends JPanel implements ActionListener {
 	private final int width = 470;
 	private final int height = 40;
+	private NumberFormat formatter = NumberFormat.getCurrencyInstance(getDefaultLocale());
 	
 	private JLabel lblNameAlbum;
 	private JLabel lblNameArtist;
@@ -26,28 +31,36 @@ public class WarenkorbItem extends JPanel implements ActionListener {
 	private JButton btnRemove;
 	
 	// the values for the labels
-	private String nameAlbum = "Albumtitel";
-	private String nameArtist = "Interpret";
-	private Double singlePrice = 7.99;
+	private String nameAlbum;
+	private String nameArtist;
+	private double singlePrice;
 	private int  amount = 1;
-	private Double sumPrice;
+	private double sumPrice;
+	
+	public double getSumPrice() {
+		return sumPrice;
+	}
 
-	public WarenkorbItem() {
+	public WarenkorbItem(BuyItem item) {
 		this.setSize(width, height);
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
+		
+		this.amount = item.getAmount();
+		
+		singlePrice = item.getPrice();
 		
 		sumPrice = singlePrice * amount;
 		setLayout(new GridLayout(0, 6, 0, 0));
 		
-		lblNameAlbum = new JLabel(nameAlbum);
+		lblNameAlbum = new JLabel(item.getAlbum());
 		lblNameAlbum.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblNameAlbum);
 		
-		lblNameArtist = new JLabel(nameArtist);
+		lblNameArtist = new JLabel(item.getArtist());
 		lblNameArtist.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblNameArtist);
 		
-		lblSinglePrice = new JLabel(String.valueOf(singlePrice));
+		lblSinglePrice = new JLabel(formatter.format(singlePrice));
 		lblSinglePrice.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblSinglePrice);
 		
@@ -56,7 +69,7 @@ public class WarenkorbItem extends JPanel implements ActionListener {
 		spinAmount.setValue(Integer.valueOf(amount));
 		add(spinAmount);
 		
-		lblSumPrice = new JLabel(String.valueOf(sumPrice));
+		lblSumPrice = new JLabel(formatter.format(sumPrice));
 		lblSumPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblSumPrice);
 		

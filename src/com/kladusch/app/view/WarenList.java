@@ -1,8 +1,13 @@
 package com.kladusch.app.view;
 
+import java.util.List;
+
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.kladusch.app.model.BuyItem;
+import com.kladusch.app.model.MainModel;
 
 public class WarenList extends JPanel {
 	public WarenList() {
@@ -12,9 +17,11 @@ public class WarenList extends JPanel {
 	}
 
 	public void loadWarenkorbItems() {
-		// creates dummy items
-		for (int i = 0; i < 2; i++) {
-			this.add(new WarenkorbItem());
+		this.removeAll();
+		List<BuyItem> buyList = MainModel.buyList;
+		for (BuyItem item : buyList) {
+			System.out.println("adding an item");
+			this.add(new WarenkorbItem(item));
 		}
 	}
 }

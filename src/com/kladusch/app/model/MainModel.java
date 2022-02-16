@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kladusch.app.model.interfaces.DBConnection;
+import com.kladusch.app.view.WarenList;
 
 public class MainModel {
 	// ATTRIBUTES
 	private DBConnection connection;
 	private List<KatalogItem> katalog = new ArrayList<>();
 	private List<String> kategorien = new ArrayList<>();
+	public static List<BuyItem> buyList = new ArrayList<>();
 	
 	// GETTERS & SETTERS
 	public DBConnection getDBConnection() {
@@ -103,4 +105,22 @@ public class MainModel {
 		
 	}
 
+	public static void addArtikelToWarenkorb(String artist, String album, double price, int id) {
+		int amount = 1;
+		boolean wasThere = false;
+		for (BuyItem item : buyList) {
+			if (item.getID() == id) {
+				item.setAmount(item.getAmount()+amount);
+				wasThere = true;
+			}
+		}
+		if (!wasThere) {
+			buyList.add(new BuyItem(amount, artist, album, price, id));	
+		}
+		
+	}
+	
+	public static void removeArtikelFromWarenkorb(int index) {
+		
+	}
 }
