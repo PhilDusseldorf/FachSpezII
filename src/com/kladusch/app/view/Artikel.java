@@ -31,13 +31,15 @@ import com.kladusch.app.model.KatalogItem;
 import com.kladusch.app.model.MainModel;
 
 public class Artikel extends JPanel implements ActionListener{
-	private JButton btnAlbumIcon;
 	private JLabel lblAlbumTitle;
 	private JLabel lblAlbumArtist;
 	private JLabel lblAlbumPrice;
 	private String priceString;
+	private JButton btnAlbumIcon;
 	private JButton btnBuy;
+	private JButton btnBuy2;
 	private MyFrame window;
+	private JDialog dialog;
 	
 	// infos from ArrayList
 	private int id;
@@ -99,7 +101,7 @@ public class Artikel extends JPanel implements ActionListener{
 		JFrame frame = new JFrame();
 		frame.setResizable(false);
 		// the actual dialog "panel"
-        JDialog dialog = new JDialog(frame , "Produktdetails");
+        dialog = new JDialog(frame , "Produktdetails");
         // set bounds of dialog
         int dialogWidth = 400;
         int dialogHeight = 400;
@@ -157,7 +159,9 @@ public class Artikel extends JPanel implements ActionListener{
 		preis.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxLeft.add(preis);
 		
-		boxLeft.add(btnBuy);	// this button already exists in this class, so I just add it
+		btnBuy2 = new JButton("Kaufen");
+		btnBuy2.addActionListener(this);
+		boxLeft.add(btnBuy2);
 		
 		JPanel boxRight = new JPanel();
 		boxRight.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -195,9 +199,12 @@ public class Artikel extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnBuy) {
+		if (e.getSource() == btnBuy || e.getSource() == btnBuy2) {
 			System.out.println("Popup für Kauf soll öffnen...");
 			MainModel.addArtikelToWarenkorb(nameArtist, nameAlbum, price, id);
+			if (e.getSource() == btnBuy2) {
+				dialog.setVisible(false);
+			}
 			JOptionPane.showMessageDialog(this, "Der Artikel wurde im Warenkorb gespeichert.", "Artikel gemerkt", JOptionPane.PLAIN_MESSAGE);
 		}
 		
