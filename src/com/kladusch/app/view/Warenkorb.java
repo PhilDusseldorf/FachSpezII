@@ -62,7 +62,7 @@ public class Warenkorb extends MyPanel implements ActionListener {
 		warenkorbPanel.add(lblWarenkorb);
 		
 		// here the warenkorbItems are shown
-		warenList = new WarenList();
+		warenList = new WarenList(frame);
 		warenList.loadWarenkorbItems();
 		
 		warenkorbScroll = new JScrollPane(warenList, 

@@ -46,7 +46,7 @@ public class MyFrame extends JFrame {
 		this.setResizable(false);
 		
 		// panel initializations
-		warenList = new WarenList();
+		warenList = new WarenList(this);
 		startPanel = new Prototyp(this);
 		sortPanel = new Sortiment(this, katalog, kategorien);
 		warenPanel = new Warenkorb(this);

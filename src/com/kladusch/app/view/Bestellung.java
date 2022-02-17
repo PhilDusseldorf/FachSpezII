@@ -116,7 +116,7 @@ public class Bestellung extends MyPanel implements ActionListener {
 		bestellPanel.add(lblBestellung);
 		
 		// here the warenkorbItems are shown
-		warenList = new WarenList();
+		warenList = new WarenList(frame);
 		warenList.loadWarenkorbItems();
 		
 		JScrollPane warenkorbItems = new JScrollPane(warenList, 
@@ -168,6 +168,7 @@ public class Bestellung extends MyPanel implements ActionListener {
 		if (e.getSource() == btnBestellen) {
 			System.out.println("Bestellung abgeschickt!");
 			JOptionPane.showMessageDialog(this, "Die Bestellung wird nun von uns bearbeitet.", "Bestellung aufgegeben", JOptionPane.PLAIN_MESSAGE);
+			frame.changePanel(frame.getSortPanel());
 		}
 		
 		if (e.getSource() == btnWarenkorb2) {
