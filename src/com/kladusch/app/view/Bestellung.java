@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.kladusch.app.MyPanel;
+import com.kladusch.app.model.MainModel;
 import com.kladusch.app.MyFrame;
 
 import javax.swing.JScrollPane;
@@ -27,7 +28,7 @@ import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 
 public class Bestellung extends MyPanel implements ActionListener {
-	WarenList warenList;
+	private WarenList warenList;
 
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -117,7 +118,7 @@ public class Bestellung extends MyPanel implements ActionListener {
 		
 		// here the warenkorbItems are shown
 		warenList = new WarenList(frame);
-		warenList.loadWarenkorbItems();
+		warenList.loadBestellung();
 		
 		JScrollPane warenkorbItems = new JScrollPane(warenList, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -168,6 +169,7 @@ public class Bestellung extends MyPanel implements ActionListener {
 		if (e.getSource() == btnBestellen) {
 			System.out.println("Bestellung abgeschickt!");
 			JOptionPane.showMessageDialog(this, "Die Bestellung wird nun von uns bearbeitet.", "Bestellung aufgegeben", JOptionPane.PLAIN_MESSAGE);
+			MainModel.buyList.clear();
 			frame.changePanel(frame.getSortPanel());
 		}
 		

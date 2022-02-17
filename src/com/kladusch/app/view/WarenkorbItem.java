@@ -73,10 +73,11 @@ public class WarenkorbItem extends JPanel implements ActionListener {
 		spinAmount.setModel(new SpinnerNumberModel(1, 1, 100, 1));
 		spinAmount.setValue(Integer.valueOf(amount));
 		spinAmount.addChangeListener(new ChangeListener(){
-		      public void stateChanged(javax.swing.event.ChangeEvent ce){
+		      public void stateChanged(javax.swing.event.ChangeEvent ce) {
 		          System.out.println("Spinner changed to " + spinAmount.getValue());
-		      }
-		});
+		          for (BuyItem changeItem : MainModel.buyList) {
+		                if (changeItem.getID() == item.getID()) {changeItem.setAmount((int)spinAmount.getValue());break;}
+		      }}});
 		add(spinAmount);
 		
 		lblSumPrice = new JLabel(formatter.format(sumPrice));

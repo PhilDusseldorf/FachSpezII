@@ -17,7 +17,6 @@ public class MyFrame extends JFrame {
     private MyPanel startPanel;
     private MyPanel sortPanel;
     private MyPanel warenPanel;
-    private MyPanel bestellPanel;
 
 	public WarenList getWarenList() {
 		return warenList;
@@ -35,10 +34,6 @@ public class MyFrame extends JFrame {
 		return warenPanel;
 	}
 
-	public MyPanel getBestellPanel() {
-		return bestellPanel;
-	}
-
 	public MyFrame(List<KatalogItem> katalog, List<String> kategorien) {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 800, 600);
@@ -50,18 +45,17 @@ public class MyFrame extends JFrame {
 		startPanel = new Prototyp(this);
 		sortPanel = new Sortiment(this, katalog, kategorien);
 		warenPanel = new Warenkorb(this);
-		bestellPanel = new Bestellung(this);
 		
 		changePanel(startPanel);
 	}
 	
     public void changePanel(MyPanel newPanel) {
-    	System.out.println("Content Pane before: " + this.getContentPane().getClass().getSimpleName());
+    	// System.out.println("Content Pane before: " + this.getContentPane().getClass().getSimpleName());
 
     	this.setContentPane(newPanel);
 
     	this.setVisible(true);
-    	System.out.println("Content Pane after: " + this.getContentPane().getClass().getSimpleName());
+    	// System.out.println("Content Pane after: " + this.getContentPane().getClass().getSimpleName());
     }
 
 	public void startSearch(String text) {

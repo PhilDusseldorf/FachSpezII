@@ -62,8 +62,7 @@ public class Warenkorb extends MyPanel implements ActionListener {
 		warenkorbPanel.add(lblWarenkorb);
 		
 		// here the warenkorbItems are shown
-		warenList = new WarenList(frame);
-		warenList.loadWarenkorbItems();
+		warenList = frame.getWarenList();
 		
 		warenkorbScroll = new JScrollPane(warenList, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -104,8 +103,8 @@ public class Warenkorb extends MyPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnBezahlen && MainModel.buyList.size() > 0) {
-			System.out.println("Bezahlvorgang startet...");	
-			frame.changePanel(frame.getBestellPanel());	
+			MyPanel bestellung = new Bestellung(frame);
+			frame.changePanel(bestellung);	
 		}
 	}
 }

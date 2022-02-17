@@ -17,7 +17,6 @@ public class WarenList extends JPanel {
 		this.frame = frame;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(new EmptyBorder(10, 10, 10, 10));
-		
 	}
 
 	public void loadWarenkorbItems() {
@@ -26,6 +25,15 @@ public class WarenList extends JPanel {
 		for (BuyItem item : buyList) {
 			System.out.println("adding an item");
 			this.add(new WarenkorbItem(item, frame));
+		}
+	}
+	
+	public void loadBestellung() {
+		this.removeAll();
+		List<BuyItem> buyList = MainModel.buyList;
+		for (BuyItem item : buyList) {
+			System.out.println("adding an bestellungs item");
+			this.add(new BestellItem(item, frame));
 		}
 	}
 }
