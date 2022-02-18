@@ -13,7 +13,7 @@ public class App {
     	DBConnection connection = new SQLiteConnection();
     	MainModel model = new MainModel(connection);
     	// Frame
-    	MyFrame frame = new MyFrame(model.getKatalog(), model.getKategorien());
+    	MyFrame frame = new MyFrame(model);
         
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

@@ -40,6 +40,7 @@ public class Artikel extends JPanel implements ActionListener{
 	private JButton btnBuy2;
 	private MyFrame window;
 	private JDialog dialog;
+	private MainModel model;
 	
 	// infos from ArrayList
 	private int id;
@@ -55,10 +56,12 @@ public class Artikel extends JPanel implements ActionListener{
 	private final Font fntStnd = new Font("Tahoma", Font.PLAIN, 11);
 	private NumberFormat formatter = NumberFormat.getCurrencyInstance(getDefaultLocale());
 	
-	public Artikel(MyFrame myFrame, KatalogItem item) {
+	public Artikel(MyFrame myFrame, KatalogItem item, MainModel model) {
 		this.window = myFrame;
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		this.model = model;
 		
 		kategorienList = new ArrayList<String>(item.kategorienList);
 		
@@ -201,7 +204,7 @@ public class Artikel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnBuy || e.getSource() == btnBuy2) {
 			System.out.println("Popup für Kauf soll öffnen...");
-			MainModel.addArtikelToWarenkorb(nameArtist, nameAlbum, price, id);
+			model.addArtikelToWarenkorb(nameArtist, nameAlbum, price, id);
 			if (e.getSource() == btnBuy2) {
 				dialog.setVisible(false);
 			}

@@ -75,7 +75,7 @@ public class WarenkorbItem extends JPanel implements ActionListener {
 		spinAmount.addChangeListener(new ChangeListener(){
 		      public void stateChanged(javax.swing.event.ChangeEvent ce) {
 		          System.out.println("Spinner changed to " + spinAmount.getValue());
-		          for (BuyItem changeItem : MainModel.buyList) {
+		          for (BuyItem changeItem : frame.getMainModel().getBuyList()) {
 		                if (changeItem.getID() == item.getID()) {changeItem.setAmount((int)spinAmount.getValue());break;}
 		      }}});
 		add(spinAmount);
@@ -95,9 +95,9 @@ public class WarenkorbItem extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnRemove ) {
 			System.out.println("Item soll entfernt werden.");
-			Optional<BuyItem> option = MainModel.buyList.stream().filter(o -> o.getID() == id).findFirst();
-			option.ifPresent(opt -> {for (BuyItem item : MainModel.buyList) {
-				if (item.getID() == opt.getID()) {MainModel.buyList.remove(item);break;}
+			Optional<BuyItem> option = frame.getMainModel().getBuyList().stream().filter(o -> o.getID() == id).findFirst();
+			option.ifPresent(opt -> {for (BuyItem item : frame.getMainModel().getBuyList()) {
+				if (item.getID() == opt.getID()) {frame.getMainModel().getBuyList().remove(item);break;}
 			}});
 			((Warenkorb)frame.getWarenPanel()).getWarenList().loadWarenkorbItems();
             ((Warenkorb)frame.getWarenPanel()).refreshZuZahlen();

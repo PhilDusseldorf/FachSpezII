@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import com.kladusch.app.MyFrame;
 import com.kladusch.app.MyPanel;
 import com.kladusch.app.model.KatalogItem;
+import com.kladusch.app.model.MainModel;
 
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
@@ -31,6 +32,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
 public class Sortiment extends MyPanel {
+	
 	private JPanel articleListPanel;
 	private JPanel centerPanel;
 	private JPanel centerMenu;
@@ -38,9 +40,10 @@ public class Sortiment extends MyPanel {
 	private List<KatalogItem> katalog;
 	private List<KatalogItem> searchItemList;
 
-	public Sortiment(MyFrame frame, List<KatalogItem> katalogList, List<String> kategorien) {
+	public Sortiment(MyFrame frame) {
 		super(frame);
-		this.katalog = katalogList;
+
+		this.katalog = model.getKatalog();
 		this.searchItemList = new ArrayList<>(katalog);
 		
 		// the center panel with upper centerMenu panel and the panel for the articleList
@@ -98,13 +101,13 @@ public class Sortiment extends MyPanel {
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		this.add(scrollKat, BorderLayout.WEST);
 		
-		createCategorieButtons(categoryPanel, kategorien);
+		createCategorieButtons(categoryPanel, model.getKategorien());
 	}
 	
 	private void addItemsToArtikelListPanel() {
 		articleListPanel.removeAll();
 		for (KatalogItem item:  searchItemList) {
-			articleListPanel.add(new Artikel(frame, item));
+			articleListPanel.add(new Artikel(frame, item, model));
 		}
 	}
 

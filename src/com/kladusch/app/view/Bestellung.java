@@ -132,7 +132,7 @@ public class Bestellung extends MyPanel implements ActionListener {
 		lblZuZahlen.setBounds(238, 396, 142, 22);
 		bestellPanel.add(lblZuZahlen);
 		
-		JLabel sumLabel = new JLabel("89,89 \u20AC");
+		JLabel sumLabel = new JLabel(frame.getMainModel().getZuZahlen());
 		sumLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		sumLabel.setBounds(390, 398, 50, 19);
 		bestellPanel.add(sumLabel);
@@ -169,7 +169,7 @@ public class Bestellung extends MyPanel implements ActionListener {
 		if (e.getSource() == btnBestellen) {
 			System.out.println("Bestellung abgeschickt!");
 			JOptionPane.showMessageDialog(this, "Die Bestellung wird nun von uns bearbeitet.", "Bestellung aufgegeben", JOptionPane.PLAIN_MESSAGE);
-			MainModel.buyList.clear();
+			model.getBuyList().clear();
 			frame.changePanel(frame.getSortPanel());
 		}
 		

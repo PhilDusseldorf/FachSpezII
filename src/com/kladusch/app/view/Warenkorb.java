@@ -32,7 +32,6 @@ import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 
 public class Warenkorb extends MyPanel implements ActionListener {
-	private NumberFormat formatter = NumberFormat.getCurrencyInstance(getDefaultLocale());
 	JPanel warenkorbPanel;
 	WarenList warenList;
 	
@@ -88,11 +87,7 @@ public class Warenkorb extends MyPanel implements ActionListener {
 	}
 	
 	private String getZuZahlen() {
-		double sum = 0.0;
-		for (Component item : warenList.getComponents()) {
-			sum += ((WarenkorbItem)item).getSumPrice();
-		}
-		return formatter.format(sum);
+		return frame.getMainModel().getZuZahlen();
 	}
 	
 	public void refreshZuZahlen() {
@@ -102,7 +97,7 @@ public class Warenkorb extends MyPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnBezahlen && MainModel.buyList.size() > 0) {
+		if (e.getSource() == btnBezahlen && frame.getMainModel().getBuyList().size() > 0) {
 			MyPanel bestellung = new Bestellung(frame);
 			frame.changePanel(bestellung);	
 		}

@@ -21,7 +21,7 @@ public class WarenList extends JPanel {
 
 	public void loadWarenkorbItems() {
 		this.removeAll();
-		List<BuyItem> buyList = MainModel.buyList;
+		List<BuyItem> buyList = frame.getMainModel().getBuyList();
 		for (BuyItem item : buyList) {
 			System.out.println("adding an item");
 			this.add(new WarenkorbItem(item, frame));
@@ -30,7 +30,7 @@ public class WarenList extends JPanel {
 	
 	public void loadBestellung() {
 		this.removeAll();
-		List<BuyItem> buyList = MainModel.buyList;
+		List<BuyItem> buyList = frame.getMainModel().getBuyList();
 		for (BuyItem item : buyList) {
 			System.out.println("adding an bestellungs item");
 			this.add(new BestellItem(item, frame));

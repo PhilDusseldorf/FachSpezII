@@ -1,22 +1,24 @@
 package com.kladusch.app;
 
-import java.util.List;
-
 import javax.swing.JFrame;
 
-import com.kladusch.app.model.KatalogItem;
-import com.kladusch.app.view.Bestellung;
+import com.kladusch.app.model.MainModel;
 import com.kladusch.app.view.Prototyp;
 import com.kladusch.app.view.Sortiment;
 import com.kladusch.app.view.WarenList;
 import com.kladusch.app.view.Warenkorb;
 
 public class MyFrame extends JFrame {
+	private MainModel model;
 	// Panels
 	private WarenList warenList;
     private MyPanel startPanel;
     private MyPanel sortPanel;
     private MyPanel warenPanel;
+    
+    public MainModel getMainModel() {
+		return model;
+	}
 
 	public WarenList getWarenList() {
 		return warenList;
@@ -34,16 +36,18 @@ public class MyFrame extends JFrame {
 		return warenPanel;
 	}
 
-	public MyFrame(List<KatalogItem> katalog, List<String> kategorien) {
+	public MyFrame(MainModel model) {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 800, 600);
 		this.setTitle("myCD-Shop");
 		this.setResizable(false);
 		
+		this.model = model;
+		
 		// panel initializations
 		warenList = new WarenList(this);
 		startPanel = new Prototyp(this);
-		sortPanel = new Sortiment(this, katalog, kategorien);
+		sortPanel = new Sortiment(this);
 		warenPanel = new Warenkorb(this);
 		
 		changePanel(startPanel);
@@ -61,4 +65,5 @@ public class MyFrame extends JFrame {
 	public void startSearch(String text) {
 		((Sortiment)sortPanel).showSearch(text);
 	}
+
 }

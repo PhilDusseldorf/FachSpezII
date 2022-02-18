@@ -2,18 +2,21 @@ package com.kladusch.app.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.kladusch.app.model.interfaces.DBConnection;
-import com.kladusch.app.view.WarenList;
 
 public class MainModel {
 	// ATTRIBUTES
 	private DBConnection connection;
+    private NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
+	
 	private List<KatalogItem> katalog = new ArrayList<>();
 	private List<String> kategorien = new ArrayList<>();
-	public static List<BuyItem> buyList = new ArrayList<>();
+	private List<BuyItem> buyList = new ArrayList<>();
 	
 	// GETTERS & SETTERS
 	public DBConnection getDBConnection() {
@@ -22,6 +25,10 @@ public class MainModel {
 	
 	public void setDBConnection(DBConnection con) {
 		this.connection = con;
+	}
+	
+	public List<BuyItem> getBuyList() {
+		return buyList;
 	}
 	
 	public List<KatalogItem> getKatalog() {
@@ -105,7 +112,7 @@ public class MainModel {
 		
 	}
 
-	public static void addArtikelToWarenkorb(String artist, String album, double price, int id) {
+	public void addArtikelToWarenkorb(String artist, String album, double price, int id) {
 		int amount = 1;
 		boolean wasThere = false;
 		for (BuyItem item : buyList) {
@@ -120,7 +127,11 @@ public class MainModel {
 		
 	}
 	
-	public static void removeArtikelFromWarenkorb(int index) {
-		
+	public String getZuZahlen() {
+		double sum = 0.0;
+		for (BuyItem buyItem : buyList) {
+			sum += (buyItem.getPrice() * buyItem.getAmount());
+		}
+		return formatter.format(sum);
 	}
 }
