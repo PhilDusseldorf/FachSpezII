@@ -155,7 +155,7 @@ public class Bestellung extends MyPanel implements ActionListener {
 		
 		btnWarenkorb2 = new JButton("Zur\u00FCck zum Warenkorb");
 		btnWarenkorb2.setBackground(UIManager.getColor("Button.background"));
-		btnWarenkorb2.setBounds(321, 423, 200, 40);
+		btnWarenkorb2.setBounds(121, 423, 200, 40);
 		btnWarenkorb2.addActionListener(this);
 		bestellPanel.add(btnWarenkorb2);
 		

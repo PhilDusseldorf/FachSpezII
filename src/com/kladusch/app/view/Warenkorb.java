@@ -82,7 +82,7 @@ public class Warenkorb extends MyPanel implements ActionListener {
 		btnBezahlen = new JButton("Bezahlvorgang starten");
 		btnBezahlen.setBackground(new Color(0, 128, 0));
 		btnBezahlen.addActionListener(this);
-		btnBezahlen.setBounds(573, 423, 104, 40);
+		btnBezahlen.setBounds(473, 423, 200, 40);
 		warenkorbPanel.add(btnBezahlen);
 	}
 	

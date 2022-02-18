@@ -76,7 +76,10 @@ public class WarenkorbItem extends JPanel implements ActionListener {
 		      public void stateChanged(javax.swing.event.ChangeEvent ce) {
 		          System.out.println("Spinner changed to " + spinAmount.getValue());
 		          for (BuyItem changeItem : frame.getMainModel().getBuyList()) {
-		                if (changeItem.getID() == item.getID()) {changeItem.setAmount((int)spinAmount.getValue());break;}
+		                if (changeItem.getID() == item.getID()) {changeItem.setAmount((int)spinAmount.getValue());
+		                refreshWarenkorb();
+		                break;
+		          }
 		      }}});
 		add(spinAmount);
 		
@@ -90,19 +93,24 @@ public class WarenkorbItem extends JPanel implements ActionListener {
 		add(btnRemove);
 
 	}
+	
+	private void refreshWarenkorb() {
+		((Warenkorb)frame.getWarenPanel()).getWarenList().loadWarenkorbItems();
+		((Warenkorb)frame.getWarenPanel()).refreshZuZahlen();
+		frame.changePanel(frame.getWarenPanel());	
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnRemove ) {
-			System.out.println("Item soll entfernt werden.");
 			Optional<BuyItem> option = frame.getMainModel().getBuyList().stream().filter(o -> o.getID() == id).findFirst();
 			option.ifPresent(opt -> {for (BuyItem item : frame.getMainModel().getBuyList()) {
-				if (item.getID() == opt.getID()) {frame.getMainModel().getBuyList().remove(item);break;}
+				if (item.getID() == opt.getID()) {
+					frame.getMainModel().getBuyList().remove(item);
+					break;
+				}
 			}});
-			((Warenkorb)frame.getWarenPanel()).getWarenList().loadWarenkorbItems();
-            ((Warenkorb)frame.getWarenPanel()).refreshZuZahlen();
-            frame.changePanel(frame.getWarenPanel());
 		}
-		
+		refreshWarenkorb();
 	}
 }
