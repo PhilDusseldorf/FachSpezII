@@ -36,14 +36,14 @@ public class BestellItem extends JPanel {
 		this.frame = frame;
 		this.amount = item.getAmount();
 		singlePrice = item.getPrice();
-		System.out.println("all is well");
+
 		sumPrice = singlePrice * amount;
 		setLayout(new GridLayout(0, 6, 0, 0));
 		
 		lblAmount = new JLabel(String.valueOf(amount) + "x");
 		lblAmount.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblAmount);
-		System.out.println("still well");
+
 		lblNameAlbum = new JLabel(item.getAlbum());
 		lblNameAlbum.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblNameAlbum);

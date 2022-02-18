@@ -2,6 +2,7 @@ package com.kladusch.app.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -10,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -25,20 +27,28 @@ import javax.swing.UIManager;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
+
 import java.awt.GridLayout;
 
 public class Bestellung extends MyPanel implements ActionListener {
 	private WarenList warenList;
 
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField fldVorname;
+	private JTextField fldNachname;
+	private JTextField fldStrasse;
+	private JTextField fldHausnummer;
+	private JTextField fldStadt;
+	private JTextField fldPLZ;
 	
+	private JPanel datenPanel;
 	private JButton btnBestellen;
 	private JButton btnWarenkorb2;
+	private JRadioButton rdbtnNachnahme;
+	private JRadioButton rdbtnRechnung;
+	private ButtonGroup btngRadioButtons;
+	private JCheckBox chckbxAGB;
 
 	public Bestellung(MyFrame frame) {
 		super(frame);
@@ -48,7 +58,7 @@ public class Bestellung extends MyPanel implements ActionListener {
 		this.add(westPanel, BorderLayout.WEST);
 		westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
 		
-		JPanel datenPanel = new JPanel();
+		datenPanel = new JPanel();
 		datenPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		datenPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		datenPanel.setMinimumSize(new Dimension(400,600));
@@ -62,46 +72,46 @@ public class Bestellung extends MyPanel implements ActionListener {
 		JLabel lblVorname = new JLabel("Vorname");
 		datenPanel.add(lblVorname);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(1);
-		textField_1.setSize(100, 50);
-		datenPanel.add(textField_1);
+		fldVorname = new JTextField();
+		fldVorname.setColumns(1);
+		fldVorname.setSize(100, 50);
+		datenPanel.add(fldVorname);
 		
 		JLabel lblNachname = new JLabel("Nachname");
 		datenPanel.add(lblNachname);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(1);
-		datenPanel.add(textField_2);
+		fldNachname = new JTextField();
+		fldNachname.setColumns(1);
+		datenPanel.add(fldNachname);
 		
 		JLabel lblStrasse = new JLabel("Strasse");
 		datenPanel.add(lblStrasse);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(1);
-		datenPanel.add(textField_3);
+		fldStrasse = new JTextField();
+		fldStrasse.setColumns(1);
+		datenPanel.add(fldStrasse);
 		
 		JLabel lblHausnummer = new JLabel("Hausnummer");
 		lblHausnummer.setVerticalAlignment(SwingConstants.TOP);
 		datenPanel.add(lblHausnummer);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(1);
-		datenPanel.add(textField_4);
+		fldHausnummer = new JTextField();
+		fldHausnummer.setColumns(1);
+		datenPanel.add(fldHausnummer);
 		
 		JLabel lblStadt = new JLabel("Stadt");
 		datenPanel.add(lblStadt);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(1);
-		datenPanel.add(textField_5);
+		fldStadt = new JTextField();
+		fldStadt.setColumns(1);
+		datenPanel.add(fldStadt);
 		
 		JLabel lblPLZ = new JLabel("PLZ");
 		datenPanel.add(lblPLZ);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(1);
-		datenPanel.add(textField_6);
+		fldPLZ = new JTextField();
+		fldPLZ.setColumns(1);
+		datenPanel.add(fldPLZ);
 		
 		JPanel spacingPanel = new JPanel();
 		westPanel.add(spacingPanel);
@@ -139,34 +149,93 @@ public class Bestellung extends MyPanel implements ActionListener {
 		
 		btnBestellen = new JButton("Bezahlvorgang starten");
 		btnBestellen.setBackground(new Color(0, 128, 0));
-		btnBestellen.setBounds(348, 423, 104, 40);
+		btnBestellen.setBounds(348, 423, 200, 40);
 		btnBestellen.addActionListener(this);
 		bestellPanel.add(btnBestellen);
 		
 		btnWarenkorb2 = new JButton("Zur\u00FCck zum Warenkorb");
 		btnWarenkorb2.setBackground(UIManager.getColor("Button.background"));
-		btnWarenkorb2.setBounds(221, 423, 104, 40);
+		btnWarenkorb2.setBounds(321, 423, 200, 40);
 		btnWarenkorb2.addActionListener(this);
 		bestellPanel.add(btnWarenkorb2);
 		
-		JRadioButton rdbtnRechnung = new JRadioButton("auf Rechnung");
+		rdbtnRechnung = new JRadioButton("auf Rechnung");
 		rdbtnRechnung.setBounds(73, 272, 109, 23);
 		bestellPanel.add(rdbtnRechnung);
 		
-		JRadioButton rdbtnNachnahme = new JRadioButton("per Nachnahme");
+		rdbtnNachnahme = new JRadioButton("per Nachnahme");
 		rdbtnNachnahme.setBounds(73, 298, 109, 23);
 		bestellPanel.add(rdbtnNachnahme);
 		
-		JCheckBox chckbxAGB = new JCheckBox("ich stimme den AGB zu.");
+		btngRadioButtons = new ButtonGroup();
+		btngRadioButtons.add(rdbtnRechnung);
+		btngRadioButtons.add(rdbtnNachnahme);
+		
+		chckbxAGB = new JCheckBox("ich stimme den AGB zu.");
 		chckbxAGB.setBounds(224, 298, 170, 23);
 		bestellPanel.add(chckbxAGB);
 		
 		
 	}
+	
+	private void getDataForBestellung() {
+		// only prints the data to the console yet
+		System.out.println(
+			fldVorname.getText()+ "/" +
+			fldNachname.getText()+ "/" +
+			fldStrasse.getText()+ "/" +
+			fldHausnummer.getText()+ "/" +
+			fldStadt.getText()+ "/" +
+			fldPLZ.getText()
+		);
+		if (rdbtnNachnahme.isSelected()) {
+			System.out.println(rdbtnNachnahme.getText());
+		}
+		
+		if (rdbtnRechnung.isSelected()) {
+			System.out.println(rdbtnRechnung.getText());
+		}
+			
+		System.out.println(
+				"AGB accepted : " + chckbxAGB.isSelected()
+		);
+		
+	}
+	
+	private boolean isEverythingCovered() {
+		
+		for (Component comp : datenPanel.getComponents()) { 
+			if (comp instanceof JTextField) { 
+				if (((JTextField)comp).getText().isBlank()) {
+					JOptionPane.showMessageDialog(
+							this,
+							"Eines der Textfelder ist leer. Bitte füllen Sie das Formularfeld komplett aus.",
+							"Eingabefehler", 
+							JOptionPane.WARNING_MESSAGE
+							); 
+					return false; 
+				} 
+			} 
+		}
+		 
+
+		if (btngRadioButtons.getSelection() == null) {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie eine Zahlungsmethode.", "Zahlungsmethode", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		
+		if (!chckbxAGB.isSelected()) {
+			JOptionPane.showMessageDialog(this, "Bitte stimmen Sie den Allgemeinen GeschäftsBedingungen(AGB) zu, wenn Sie eine Bestellung aufgeben möchten.", "AGB", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		
+		return true;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnBestellen) {
+		if (e.getSource() == btnBestellen && isEverythingCovered()) {
+			getDataForBestellung();
 			System.out.println("Bestellung abgeschickt!");
 			JOptionPane.showMessageDialog(this, "Die Bestellung wird nun von uns bearbeitet.", "Bestellung aufgegeben", JOptionPane.PLAIN_MESSAGE);
 			model.getBuyList().clear();
