@@ -1,11 +1,19 @@
 package com.kladusch.app.model;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import com.kladusch.app.model.interfaces.DBConnection;
 
@@ -95,6 +103,24 @@ public class MainModel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		// fill katalog with icons
+		query = "SELECT artikel_id AS id, bild FROM bild";
+		
+		rs = getData(query);
+		
+		try {
+			while (rs.next()) {
+				for (KatalogItem item : katalog) {
+					if (item.id == rs.getInt("id")) {
+						byte[] decodedIcon = Base64.getDecoder().decode(rs.getString("bild"));
+						item.imageIcon = new ImageIcon(decodedIcon);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void createKategorien() {		
@@ -134,4 +160,38 @@ public class MainModel {
 		}
 		return formatter.format(sum);
 	}
+	
+/* 
+ * Commented out for later use
+ * It stores data into DB
+	private void deployEncryptedIconsToDB() {
+		File folder = new File("./res/icons");
+		File[] listOfFiles = folder.listFiles();
+		// get through all files in the specified directory
+		for (File file : listOfFiles) {
+		    if (file.isFile()) {
+				try {
+					// make the file into a decoded String
+					byte[] fileContent;
+					fileContent = Files.readAllBytes(file.toPath());
+					String encodedFile = Base64.getEncoder().encodeToString(fileContent);
+					
+					// save the string to the database
+					String query = "INSERT INTO bild (bild, artikel_id) VALUES (?, ?);";
+					
+					// get the artist_id / convert first two chars from String into int
+					int content2 = Integer.parseInt(file.getName().toString().substring(0, 2));
+					
+					// insert the data
+					connection.insertStringToDB(query, encodedFile, content2);
+					
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+		        
+		    }
+		}
+	}
+*/
 }

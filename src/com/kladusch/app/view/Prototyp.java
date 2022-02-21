@@ -50,7 +50,7 @@ public class Prototyp extends MyPanel {
 		introPanel.add(introText, BorderLayout.CENTER);
 		
 		int imgPixels = 410;
-		JLabel welcomeIcon = new JLabel(new ImageIcon((new ImageIcon("C:\\Users\\CC-Student\\Desktop\\Hausaufgaben\\FachSpezII\\icon-placeholder-14.jpg")).getImage().getScaledInstance(imgPixels, imgPixels, 0)));
+		JLabel welcomeIcon = new JLabel(new ImageIcon((new ImageIcon("C:\\Users\\CC-Student\\Desktop\\Hausaufgaben\\FachSpezII\\res\\00.jpg")).getImage().getScaledInstance(imgPixels, imgPixels, 0)));
 		welcomeIcon.setForeground(UIManager.getColor("Button.disabledForeground"));
 		welcomeIcon.setBorder(new EmptyBorder(0, 10, 0, 0));
 		welcomeIcon.setBackground(new Color(105, 105, 105));

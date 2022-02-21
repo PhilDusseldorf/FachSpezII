@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,7 +45,7 @@ public class Artikel extends JPanel implements ActionListener{
 	
 	// infos from ArrayList
 	private int id;
-	private Icon icon;
+	private ImageIcon icon;
 	private String nameAlbum;
 	private String nameArtist;
 	private String beschreibungString;
@@ -66,8 +67,9 @@ public class Artikel extends JPanel implements ActionListener{
 		kategorienList = new ArrayList<String>(item.kategorienList);
 		
 		id = item.id;
-		icon = item.icon;
-		btnAlbumIcon = new JButton(icon);
+		icon = item.imageIcon;
+		
+		btnAlbumIcon = new JButton(scaleIcon(64,64));
 		btnAlbumIcon.addActionListener(this);
 		
 		nameAlbum = item.nameAlbum;
@@ -171,7 +173,7 @@ public class Artikel extends JPanel implements ActionListener{
 		mainPanel.add(boxRight);
 		boxRight.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblIcon = new JLabel(icon);
+		JLabel lblIcon = new JLabel(scaleIcon(128,128));
 		lblIcon.setMinimumSize(new Dimension(255,255));
 		lblIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		boxRight.add(lblIcon, BorderLayout.NORTH);
@@ -197,6 +199,12 @@ public class Artikel extends JPanel implements ActionListener{
 
         // set visibility of dialog
         dialog.setVisible(true);
+	}
+	
+	private ImageIcon scaleIcon(int width, int height) {
+		Image image = icon.getImage();
+		ImageIcon resized = new ImageIcon(image.getScaledInstance(width, height, Image.SCALE_FAST));
+		return resized;
 	}
 
 

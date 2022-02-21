@@ -8,16 +8,16 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class KatalogItem {
-	public final Icon icon;
 	public final int id;
 	public final String nameAlbum;
 	public final String nameArtist;
 	public final String beschreibungString;
 	public final Double price;
 	public final List<String> kategorienList;
+	public ImageIcon imageIcon;
 	
 	public KatalogItem (int id, String album, String artist, String description, Double price) {
-		this.icon = new ImageIcon("./bald-man.png");	// the icon does not come from the database yet
+		this.imageIcon = new ImageIcon("./res/placeholder.png");	// this is the placeholder in case no picture is found
 		this.id = id;
 		this.nameAlbum = album;
 		this.nameArtist = artist;
