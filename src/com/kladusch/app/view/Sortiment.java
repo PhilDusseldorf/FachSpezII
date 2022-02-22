@@ -25,18 +25,21 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
-public class Sortiment extends MyPanel {
+public class Sortiment extends MyPanel implements ActionListener {
 	
 	private JPanel articleListPanel;
 	private JPanel centerPanel;
 	private JPanel centerMenu;
 	private JPanel categoryPanel;
+	private JComboBox<String> comboBox;
 	private List<KatalogItem> katalog;
 	private List<KatalogItem> searchItemList;
 
@@ -67,10 +70,10 @@ public class Sortiment extends MyPanel {
 		lblSortiment.setBounds(10, 42, 85, 22);
 		centerMenu.add(lblSortiment);
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Albumtitel", "Interpret", "Preis"}));
 		comboBox.setSelectedIndex(0);
-		comboBox.setBounds(522, 42, 92, 22);
+		comboBox.setBounds(422, 42, 92, 22);
 		centerMenu.add(comboBox);
 		
 		// here the sorted and/or searched articles are shown
@@ -115,8 +118,15 @@ public class Sortiment extends MyPanel {
 		
 		for (String str : kategorien) {
 			JButton btnKategorie = new JButton(str);
+			btnKategorie.addActionListener(this);
 			panel.add(btnKategorie);
 		}	
+	}
+	
+	private void showSortedList() {
+		sortList(comboBox.getSelectedItem().toString());
+		addItemsToArtikelListPanel();
+		frame.changePanel((MyPanel)frame.getSortPanel());
 	}
 	
 	public void showSearch(String text) {
@@ -126,7 +136,39 @@ public class Sortiment extends MyPanel {
 				searchItemList.add(item);
 			}
 		}
-		addItemsToArtikelListPanel();
-		frame.changePanel((MyPanel)frame.getSortPanel());
+		showSortedList();
+	}
+	
+	private void showCategorie(String text) {
+		searchItemList.clear();
+		for (KatalogItem item: katalog) {
+			for (String kat : item.kategorienList) {
+				if (kat.toLowerCase().contains(text.toLowerCase())) {
+					searchItemList.add(item);	
+				}
+			}
+		}
+		showSortedList();
+	}
+	
+	private void sortList(String criteria) {
+		switch(criteria) {
+		case "Albumtitel":
+			searchItemList.sort((o1, o2) -> o1.nameAlbum.compareTo(o2.nameAlbum));
+			break;
+		case "Interpret":
+			searchItemList.sort((o1, o2) -> o1.nameArtist.compareTo(o2.nameArtist));
+			break;
+		case "Preis":
+			searchItemList.sort((o1, o2) -> o1.price.compareTo(o2.price));
+			break;
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() instanceof JButton) {
+			showCategorie(e.getActionCommand());
+		}
 	}
 }

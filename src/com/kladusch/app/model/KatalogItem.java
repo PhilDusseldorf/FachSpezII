@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class KatalogItem {
+public class KatalogItem{
 	public final int id;
 	public final String nameAlbum;
 	public final String nameArtist;
@@ -25,5 +25,4 @@ public class KatalogItem {
 		this.price = price;
 		this.kategorienList = new ArrayList<>();
 	}
-
 }
